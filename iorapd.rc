@@ -17,8 +17,10 @@ service iorapd /system/bin/iorapd
     user iorapd
     group iorapd
     capabilities DAC_READ_SEARCH
-    ioprio be 2
-    writepid /dev/cpuset/foreground/tasks
+    writepid /dev/cpuset/system-background/tasks
+# TODO: should this be something else like performance/tasks?
+# the main 'activity hint' thread needs to be fairly high priority to kick off
+# tracing or prefetching asap.
 
 on property:ro.iorapd.enable=false
     stop iorapd
